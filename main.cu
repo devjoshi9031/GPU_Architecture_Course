@@ -21,7 +21,7 @@ int main (int argc, char *argv[])
     size_t A_sz, B_sz, C_sz;
     unsigned VecSize;
    
-    dim3 dim_grid, dim_block;
+    extern dim3 dim_grid, dim_block;
 
     if (argc == 1) {
 		VecSize = 10000;
@@ -53,6 +53,9 @@ int main (int argc, char *argv[])
 
     /*************************************************************************/
     // INSERT CODE HERE
+    cudaMalloc((void**)&A_d,sizeof(float)*VecSize);		//Allocating memory on GPU for vector A
+    cudaMalloc((void**)&B_d,sizeof(float)*VecSize);		//Allocating memory on GPU for vector B
+    cudaMalloc((void**)&C_d,sizeof(float)*VecSize);		//Allocating memory on GPU for vector C
 
 
     /*************************************************************************/
@@ -67,6 +70,8 @@ int main (int argc, char *argv[])
 
     /*************************************************************************/
     // INSERT CODE HERE
+    cudaMemcpy(A_d, A_h, sizeof(float)*VecSize, cudaMemcpyHostToDevice);	//Transferring vector A from CPU to GPU.
+    cudaMemcpy(B_d, B_h, sizeof(float)*VecSize, cudaMemcpyHostToDevice);	//Transferring vector B from CPU to GPU.
 
 
     /*************************************************************************/
@@ -90,8 +95,7 @@ int main (int argc, char *argv[])
 
     /*************************************************************************/
     // INSERT CODE HERE
-
-
+    cudaMemcpy(C_h,C_d, sizeof(float)*VecSize, cudaMemcpyDeviceToHost);		//Copy vector C from GPU to CPU.
 	  /*************************************************************************/
 
     cudaDeviceSynchronize();
@@ -112,6 +116,9 @@ int main (int argc, char *argv[])
 
     /*************************************************************************/
     // INSERT CODE HERE
+    cudaFree(A_d);								//Free the space allocated to vector A.
+    cudaFree(B_d);								//Free the space allocated to vector B.
+    cudaFree(C_d);								//Free the space allocated to vector C.
 
 
 	  /*************************************************************************/
