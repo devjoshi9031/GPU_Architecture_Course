@@ -21,7 +21,7 @@ int main (int argc, char *argv[])
     size_t A_sz, B_sz, C_sz;
     unsigned VecSize;
    
-    extern dim3 dim_grid, dim_block;
+    dim3 dim_grid, dim_block;
 
     if (argc == 1) {
 		VecSize = 10000;
