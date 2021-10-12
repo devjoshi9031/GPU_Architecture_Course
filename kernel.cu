@@ -33,7 +33,7 @@ void basicVecAdd( float *A,  float *B, float *C, int n)
     // INSERT CODE HERE
      dim3 dim_grid(((n-1)/BLOCK_SIZE)+1,1,1);					// Initializing the grid dimension using the ceiling function to get the number of blocks depending upon the total data.
      dim3 dim_block(BLOCK_SIZE*2,1,1);						// Initializing the number of threads in a block. As said in the lab1, 512 threads per block.
-    VecAdd<<<dim_grid,dim_block>>>(n,A,B,C);					// Invoke the VecAdd function to be used by the GPU and perform vector addition.
+    VecAdd<<<dim_grid,dim_block>>>(n,A,B,C);					// Invoke the VecAdd Kernel to be used by the GPU and perform vector addition.
     /*************************************************************************/
 }
 

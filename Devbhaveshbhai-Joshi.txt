@@ -1,0 +1,13 @@
+Name: Dev Bhaveshbhai Joshi
+SID: 862191416
+
+Ques1.
+-> Here, we are using 40 thread blocks because dim_grid variable which entails the # of blocks is (40,1,1). Also each block in the block grid have 512 threads because dim_block variable in the code which entails the #of threads in a block is (512,1,1). So in total, we are using 40*512 = 20,480 threads.
+
+Ques3.
+-> This depends on the number of vector data we are using while running the vector_add executable. If we assume the data elements are defualt (10,000) then all the 20,480 threads will not have enough data to operate on. Hence, we are just using almost 50% of the total threads generated in the GPU.
+
+Ques5.
+
+-> The data transferred by using CudaMemCpy will be sent to the global memory of the GPU and it is considered to be very slow memory. Instead of using the global memory we can cache the data in the shared memory of each thread block and this will speedup the code manyfolds. Additionally, I think by reducing the number of thread blocks in the code, we can improve this program. The reason behind this is that, if we have lower thread blocks then it will reduce the scheduling overhead and increase the speed of the code.
+
